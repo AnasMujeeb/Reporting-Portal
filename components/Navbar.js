@@ -5,7 +5,7 @@ import { useState } from "react";
 import Link from "next/link";
 
 export default function Navbar() {
-  const { data: session } = useSession();
+  const { data: session, status } = useSession() || {};
   const [mobileOpen, setMobileOpen] = useState(false);
 
   const handleLogout = async () => {
