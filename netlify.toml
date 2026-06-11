@@ -3,5 +3,5 @@
   status = 200
   force = true
 
-[plugins]
+[[plugins]]
   package = "@netlify/plugin-nextjs"
