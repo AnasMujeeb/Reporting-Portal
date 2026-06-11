@@ -5,6 +5,7 @@ import { useState, useEffect, useCallback, Fragment } from "react";
 import Navbar from "@/components/Navbar";
 import StatusBadge from "@/components/StatusBadge";
 import RiskBadge from "@/components/RiskBadge";
+export const dynamic = 'force-dynamic';
 
 const CATEGORIES = [
   { value: "all", label: "All Departments" },
