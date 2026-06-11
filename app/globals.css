@@ -1,0 +1,216 @@
+@import "tailwindcss";
+
+:root {
+  --background: #0f172a;
+  --foreground: #e2e8f0;
+  --card: #1e293b;
+  --card-hover: #334155;
+  --border: #334155;
+  --border-light: #475569;
+  --muted: #94a3b8;
+  --accent-navy: #0f172a;
+  --accent-slate: #1e293b;
+  --accent-silver: #cbd5e1;
+  --warning-yellow: #facc15;
+  --warning-yellow-bg: rgba(250, 204, 21, 0.15);
+  --emerald-green: #10b981;
+  --emerald-green-bg: rgba(16, 185, 129, 0.15);
+  --sky-blue: #38bdf8;
+  --sky-blue-bg: rgba(56, 189, 248, 0.15);
+  --danger-red: #ef4444;
+  --danger-red-bg: rgba(239, 68, 68, 0.15);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-hover: var(--card-hover);
+  --color-border: var(--border);
+  --color-border-light: var(--border-light);
+  --color-muted: var(--muted);
+  --color-accent-navy: var(--accent-navy);
+  --color-accent-slate: var(--accent-slate);
+  --color-accent-silver: var(--accent-silver);
+  --color-warning-yellow: var(--warning-yellow);
+  --color-warning-yellow-bg: var(--warning-yellow-bg);
+  --color-emerald-green: var(--emerald-green);
+  --color-emerald-green-bg: var(--emerald-green-bg);
+  --color-sky-blue: var(--sky-blue);
+  --color-sky-blue-bg: var(--sky-blue-bg);
+  --color-danger-red: var(--danger-red);
+  --color-danger-red-bg: var(--danger-red-bg);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+
+  --animate-fade-in: fade-in 0.5s ease-out forwards;
+  --animate-slide-up: slide-up 0.5s ease-out forwards;
+  --animate-slide-down: slide-down 0.3s ease-out forwards;
+  --animate-glow-pulse: glow-pulse 2s ease-in-out infinite;
+  --animate-spin-slow: spin 3s linear infinite;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slide-down {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes glow-pulse {
+  0%, 100% {
+    box-shadow: 0 0 5px rgba(56, 189, 248, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(56, 189, 248, 0.6);
+  }
+}
+
+/* Global base styles */
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans, system-ui, -apple-system, sans-serif);
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--accent-navy);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border-light);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--muted);
+}
+
+/* Glassmorphism utility */
+.glass {
+  background: rgba(30, 41, 59, 0.6);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(148, 163, 184, 0.15);
+}
+
+.glass-strong {
+  background: rgba(30, 41, 59, 0.8);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(148, 163, 184, 0.2);
+}
+
+/* Aviation grid pattern background */
+.aviation-grid {
+  background-image:
+    linear-gradient(rgba(56, 189, 248, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(56, 189, 248, 0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+/* Gradient text */
+.gradient-text {
+  background: linear-gradient(135deg, #38bdf8 0%, #818cf8 50%, #c084fc 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Smooth focus ring */
+.focus-ring {
+  transition: box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.focus-ring:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.3);
+  border-color: var(--sky-blue);
+}
+
+/* Status badge styles */
+.status-pending {
+  background: var(--warning-yellow-bg);
+  color: var(--warning-yellow);
+  border: 1px solid rgba(250, 204, 21, 0.3);
+}
+
+.status-review {
+  background: var(--sky-blue-bg);
+  color: var(--sky-blue);
+  border: 1px solid rgba(56, 189, 248, 0.3);
+}
+
+.status-resolved {
+  background: var(--emerald-green-bg);
+  color: var(--emerald-green);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+/* Stagger animation for list items */
+.stagger-1 { animation-delay: 0.05s; }
+.stagger-2 { animation-delay: 0.1s; }
+.stagger-3 { animation-delay: 0.15s; }
+.stagger-4 { animation-delay: 0.2s; }
+.stagger-5 { animation-delay: 0.25s; }
+.stagger-6 { animation-delay: 0.3s; }
+
+/* ICAO Risk Matrix badges */
+.risk-red {
+  background: rgba(239, 68, 68, 0.15);
+  color: #f87171;
+  border: 1px solid rgba(239, 68, 68, 0.35);
+}
+
+.risk-orange {
+  background: rgba(251, 146, 60, 0.15);
+  color: #fb923c;
+  border: 1px solid rgba(251, 146, 60, 0.35);
+}
+
+.risk-green {
+  background: rgba(16, 185, 129, 0.15);
+  color: #34d399;
+  border: 1px solid rgba(16, 185, 129, 0.35);
+}
+
+/* Risk preview card pulse */
+@keyframes risk-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+.risk-preview-pulse {
+  animation: risk-pulse 2s ease-in-out infinite;
+}
+
