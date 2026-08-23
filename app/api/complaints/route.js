@@ -18,7 +18,7 @@ export async function GET(request) {
     let query = {};
 
     if (session.user.role === "admin") {
-      // Admin: get all complaints, with optional category filter
+      
       const category = searchParams.get("category");
       if (category && category !== "all") {
         query.category = category;
@@ -31,7 +31,7 @@ export async function GET(request) {
 
       return NextResponse.json({ complaints });
     } else {
-      // Employee: get only their own complaints
+      
       query.userId = session.user.id;
 
       const complaints = await Complaint.find(query)

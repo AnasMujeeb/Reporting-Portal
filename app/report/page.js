@@ -53,7 +53,7 @@ export default function ReportPage() {
     const file = e.target.files[0];
     if (!file) return;
 
-    // Preview
+    
     const reader = new FileReader();
     reader.onloadend = () => setImagePreview(reader.result);
     reader.readAsDataURL(file);
@@ -133,7 +133,7 @@ export default function ReportPage() {
       <Navbar />
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Page header */}
+        {}
         <div className="mb-8 animate-fade-in">
           <h1 className="text-2xl font-bold text-foreground">
             Hazard Reporting
@@ -144,7 +144,7 @@ export default function ReportPage() {
         </div>
 
         <div className="grid lg:grid-cols-5 gap-8">
-          {/* Report Form */}
+          {}
           <div className="lg:col-span-2 animate-slide-up">
             <div className="glass rounded-2xl p-6">
               <div className="flex items-center gap-2 mb-6">
@@ -156,14 +156,14 @@ export default function ReportPage() {
                 </h2>
               </div>
 
-              {/* Success message */}
+              {}
               {success && (
                 <div className="mb-4 p-3 rounded-lg bg-emerald-green-bg border border-emerald-green/30 text-emerald-green text-sm animate-slide-down">
                   ✓ {success}
                 </div>
               )}
 
-              {/* Error message */}
+              {}
               {error && (
                 <div className="mb-4 p-3 rounded-lg bg-danger-red-bg border border-danger-red/30 text-danger-red text-sm animate-slide-down">
                   {error}
@@ -171,7 +171,7 @@ export default function ReportPage() {
               )}
 
               <form onSubmit={handleSubmit} className="space-y-4">
-                {/* Title */}
+                {}
                 <div>
                   <label
                     htmlFor="report-title"
@@ -192,7 +192,7 @@ export default function ReportPage() {
                   />
                 </div>
 
-                {/* Category */}
+                {}
                 <div>
                   <label
                     htmlFor="report-category"
@@ -241,7 +241,7 @@ export default function ReportPage() {
                   />
                 </div>
 
-                {/* Description */}
+                {}
                 <div>
                   <label
                     htmlFor="report-description"
@@ -262,7 +262,7 @@ export default function ReportPage() {
                   />
                 </div>
 
-                {/* Image upload */}
+                {}
                 <div>
                   <label className="block text-xs font-medium text-muted uppercase tracking-wider mb-2">
                     Photo Evidence
@@ -331,7 +331,7 @@ export default function ReportPage() {
                   )}
                 </div>
 
-                {/* Submit */}
+                {}
                 <button
                   type="submit"
                   disabled={submitting || uploading}
@@ -343,7 +343,7 @@ export default function ReportPage() {
             </div>
           </div>
 
-          {/* Reports History */}
+          {}
           <div className="lg:col-span-3 animate-slide-up" style={{ animationDelay: "0.1s" }}>
             <div className="glass rounded-2xl p-6">
               <div className="flex items-center justify-between mb-6">

@@ -18,7 +18,7 @@ export default function Navbar() {
     <nav className="glass-strong sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
-          {/* Logo & Brand */}
+          {}
           <div className="flex items-center gap-3">
             <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-sky-blue to-indigo-500 flex items-center justify-center text-white font-bold text-sm shadow-lg shadow-sky-blue/20">
               ✈
@@ -33,7 +33,7 @@ export default function Navbar() {
             </div>
           </div>
 
-          {/* Desktop nav */}
+          {}
           <div className="hidden md:flex items-center gap-6">
             {session.user.role === "admin" && (
               <Link
@@ -54,7 +54,7 @@ export default function Navbar() {
 
             <div className="h-6 w-px bg-border" />
 
-            {/* User info */}
+            {}
             <div className="flex items-center gap-3">
               <div className="text-right">
                 <p className="text-sm font-medium text-foreground">
@@ -83,7 +83,7 @@ export default function Navbar() {
             </button>
           </div>
 
-          {/* Mobile hamburger */}
+          {}
           <button
             onClick={() => setMobileOpen(!mobileOpen)}
             className="md:hidden p-2 text-muted hover:text-foreground transition-colors cursor-pointer"
@@ -115,7 +115,7 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* Mobile menu */}
+      {}
       {mobileOpen && (
         <div className="md:hidden border-t border-border animate-slide-down">
           <div className="px-4 py-4 space-y-3">

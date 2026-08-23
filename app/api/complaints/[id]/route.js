@@ -26,12 +26,12 @@ export async function PATCH(request, { params }) {
 
     const { status, probability, severity } = body;
 
-    // Build the $set update object
+    
     const updateData = {};
 
-    // Validate and apply status if provided
+    
     if (status !== undefined) {
-      const validStatuses = ["Pending", "Under Review", "Resolved"];
+      const validStatuses = ["Pending", "In Progress", "Closed"];
       if (!validStatuses.includes(status)) {
         return NextResponse.json(
           { error: "Invalid status value" },
@@ -41,7 +41,7 @@ export async function PATCH(request, { params }) {
       updateData.status = status;
     }
 
-    // Validate and apply risk assessment if provided
+    
     if (probability !== undefined && severity !== undefined) {
       const probNum = Number(probability);
       const sevStr = String(severity).toUpperCase();
@@ -74,7 +74,7 @@ export async function PATCH(request, { params }) {
       updateData.riskLevel = riskLevel;
     }
 
-    // Ensure there's something to update
+    
     if (Object.keys(updateData).length === 0) {
       return NextResponse.json(
         { error: "No valid fields to update" },
@@ -90,7 +90,7 @@ export async function PATCH(request, { params }) {
       id,
       { $set: updateData },
       { returnDocument: "after", runValidators: true }
-    ).populate("userId", "name email");
+    ).populate("userId", "name email").lean();
 
     if (!updatedComplaint) {
       return NextResponse.json(

@@ -4,6 +4,15 @@ export default function StatusBadge({ status }) {
       className: "status-pending",
       icon: "⚠",
     },
+    "In Progress": {
+      className: "status-in-progress",
+      icon: "🔄",
+    },
+    Closed: {
+      className: "status-closed",
+      icon: "✓",
+    },
+    
     "Under Review": {
       className: "status-review",
       icon: "🔍",

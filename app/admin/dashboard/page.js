@@ -2,6 +2,7 @@
 
 import { useSession } from "next-auth/react";
 import { useState, useEffect, useCallback, Fragment } from "react";
+import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import StatusBadge from "@/components/StatusBadge";
 import RiskBadge from "@/components/RiskBadge";
@@ -14,7 +15,7 @@ const CATEGORIES = [
   { value: "facilities", label: "Facilities" },
 ];
 
-const STATUS_OPTIONS = ["Pending", "Under Review", "Resolved"];
+const STATUS_OPTIONS = ["Pending", "In Progress", "Closed"];
 
 const PROBABILITY_OPTIONS = [
   { value: 5, label: "5 — Frequent" },
@@ -32,7 +33,7 @@ const SEVERITY_OPTIONS = [
   { value: "E", label: "E — Negligible" },
 ];
 
-// Client-side mirror of the ICAO risk matrix for live preview
+
 const RISK_MATRIX = {
   "5A": "Red", "5B": "Red", "5C": "Red", "5D": "Orange", "5E": "Orange",
   "4A": "Red", "4B": "Red", "4C": "Orange", "4D": "Orange", "4E": "Orange",
@@ -84,7 +85,7 @@ export default function AdminDashboard() {
   const [expandedId, setExpandedId] = useState(null);
   const [updatingId, setUpdatingId] = useState(null);
 
-  // Risk assessment state per complaint (keyed by complaint _id)
+  
   const [riskInputs, setRiskInputs] = useState({});
 
   const fetchComplaints = useCallback(async () => {
@@ -111,7 +112,7 @@ export default function AdminDashboard() {
     }
   }, [status, filter, fetchComplaints]);
 
-  // Initialize risk inputs when a complaint is expanded
+  
   useEffect(() => {
     if (expandedId) {
       const complaint = complaints.find((c) => c._id === expandedId);
@@ -174,7 +175,7 @@ export default function AdminDashboard() {
       if (res.ok && data.success) {
         const saved = data.complaint;
 
-        // Update the complaint in local state so badge renders immediately
+        
         setComplaints((prev) =>
           prev.map((c) =>
             c._id === id
@@ -188,7 +189,7 @@ export default function AdminDashboard() {
           )
         );
 
-        // Update risk inputs to reflect saved values (keep dropdowns showing)
+        
         setRiskInputs((prev) => ({
           ...prev,
           [id]: {
@@ -197,7 +198,7 @@ export default function AdminDashboard() {
           },
         }));
 
-        // Row stays expanded so admin sees the confirmation
+        
       } else {
         console.error("Risk assessment update failed:", data.error);
         alert("Failed to save: " + (data.error || "Unknown error"));
@@ -220,12 +221,12 @@ export default function AdminDashboard() {
     }));
   };
 
-  // Stats
+  
   const stats = {
     total: complaints.length,
     pending: complaints.filter((c) => c.status === "Pending").length,
-    review: complaints.filter((c) => c.status === "Under Review").length,
-    resolved: complaints.filter((c) => c.status === "Resolved").length,
+    inProgress: complaints.filter((c) => c.status === "In Progress").length,
+    closed: complaints.filter((c) => c.status === "Closed").length,
   };
 
   if (status === "loading") {
@@ -236,7 +237,7 @@ export default function AdminDashboard() {
     );
   }
 
-  // Shared risk assessment panel (used in both desktop expanded row and mobile cards)
+  
   const renderRiskAssessmentPanel = (complaint) => {
     const input = riskInputs[complaint._id] || {
       probability: complaint.probability || "",
@@ -259,7 +260,7 @@ export default function AdminDashboard() {
         </h4>
 
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 items-start">
-          {/* Probability dropdown */}
+          {}
           <div>
             <label
               htmlFor={`prob-${complaint._id}`}
@@ -344,7 +345,7 @@ export default function AdminDashboard() {
           </div>
         </div>
 
-        {/* Save button */}
+        {}
         <div className="mt-3 flex justify-end">
           <button
             onClick={(e) => {
@@ -378,7 +379,7 @@ export default function AdminDashboard() {
       <Navbar />
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Page header */}
+        {}
         <div className="mb-8 animate-fade-in">
           <h1 className="text-2xl font-bold text-foreground">
             Admin Control Center
@@ -388,7 +389,7 @@ export default function AdminDashboard() {
           </p>
         </div>
 
-        {/* Stats cards */}
+        {}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
           {[
             {
@@ -408,16 +409,16 @@ export default function AdminDashboard() {
               textClass: "text-warning-yellow",
             },
             {
-              label: "Under Review",
-              value: stats.review,
-              icon: "🔍",
+              label: "In Progress",
+              value: stats.inProgress,
+              icon: "🔄",
               color: "sky-blue",
               bgClass: "bg-sky-blue/10 border-sky-blue/20",
               textClass: "text-sky-blue",
             },
             {
-              label: "Resolved",
-              value: stats.resolved,
+              label: "Closed",
+              value: stats.closed,
               icon: "✓",
               color: "emerald-green",
               bgClass: "bg-emerald-green/10 border-emerald-green/20",
@@ -442,7 +443,7 @@ export default function AdminDashboard() {
           ))}
         </div>
 
-        {/* Filter bar */}
+        {}
         <div className="glass rounded-xl p-4 mb-6 animate-fade-in">
           <div className="flex flex-wrap items-center gap-3">
             <span className="text-xs text-muted uppercase tracking-wider font-medium">
@@ -466,7 +467,7 @@ export default function AdminDashboard() {
           </div>
         </div>
 
-        {/* Reports table/list */}
+        {}
         <div className="glass rounded-2xl overflow-hidden animate-slide-up">
           {loading ? (
             <div className="flex items-center justify-center py-16">
@@ -481,7 +482,7 @@ export default function AdminDashboard() {
             </div>
           ) : (
             <>
-              {/* Desktop table */}
+              {}
               <div className="hidden md:block overflow-x-auto">
                 <table className="w-full">
                   <thead>
@@ -562,23 +563,31 @@ export default function AdminDashboard() {
                             </div>
                           </td>
                           <td className="px-6 py-4" onClick={(e) => e.stopPropagation()}>
-                            <select
-                              value={complaint.status}
-                              onChange={(e) =>
-                                updateStatus(complaint._id, e.target.value)
-                              }
-                              disabled={updatingId === complaint._id}
-                              className="bg-card border border-border rounded-lg px-3 py-1.5 text-xs text-foreground focus-ring cursor-pointer appearance-none disabled:opacity-50"
-                            >
-                              {STATUS_OPTIONS.map((s) => (
-                                <option key={s} value={s}>
-                                  {s}
-                                </option>
-                              ))}
-                            </select>
+                            <div className="flex items-center gap-2">
+                              <select
+                                value={complaint.status}
+                                onChange={(e) =>
+                                  updateStatus(complaint._id, e.target.value)
+                                }
+                                disabled={updatingId === complaint._id}
+                                className="bg-card border border-border rounded-lg px-3 py-1.5 text-xs text-foreground focus-ring cursor-pointer appearance-none disabled:opacity-50"
+                              >
+                                {STATUS_OPTIONS.map((s) => (
+                                  <option key={s} value={s}>
+                                    {s}
+                                  </option>
+                                ))}
+                              </select>
+                              <Link
+                                href={`/admin/dashboard/report/${complaint._id}`}
+                                className="px-3 py-1.5 rounded-lg text-[10px] font-semibold bg-sky-blue/15 text-sky-blue border border-sky-blue/30 hover:bg-sky-blue/25 transition-all duration-200 whitespace-nowrap"
+                              >
+                                Review →
+                              </Link>
+                            </div>
                           </td>
                         </tr>
-                        {/* Expanded detail row */}
+                        {}
                         {expandedId === complaint._id && (
                           <tr className="bg-card/30">
                             <td colSpan={7} className="px-6 py-4 animate-slide-down">
@@ -610,7 +619,7 @@ export default function AdminDashboard() {
                                   </div>
                                 )}
                               </div>
-                              {/* Risk Assessment Panel */}
+                              {}
                               {renderRiskAssessmentPanel(complaint)}
                             </td>
                           </tr>
@@ -621,7 +630,7 @@ export default function AdminDashboard() {
                 </table>
               </div>
 
-              {/* Mobile cards */}
+              {}
               <div className="md:hidden p-4 space-y-3">
                 {complaints.map((complaint, index) => (
                   <div
@@ -690,6 +699,12 @@ export default function AdminDashboard() {
                         >
                           {expandedId === complaint._id ? "Close" : "Assess Risk"}
                         </button>
+                        <Link
+                          href={`/admin/dashboard/report/${complaint._id}`}
+                          className="px-2 py-1 rounded-md text-[10px] font-semibold bg-sky-blue/15 text-sky-blue border border-sky-blue/30"
+                        >
+                          Review →
+                        </Link>
                       </div>
                     </div>
 
@@ -708,7 +723,7 @@ export default function AdminDashboard() {
                       </a>
                     )}
 
-                    {/* Mobile risk assessment panel */}
+                    {}
                     {expandedId === complaint._id && (
                       <div className="animate-slide-down">
                         {renderRiskAssessmentPanel(complaint)}

@@ -1,17 +1,9 @@
-/**
- * Admin Seed Script
- * 
- * Creates an admin user in the MongoDB database.
- * Usage: node scripts/seed-admin.js
- * 
- * Make sure MONGODB_URI is set in your .env.local file before running.
- */
 
 const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
 const path = require("path");
 
-// Load .env.local manually
+
 const fs = require("fs");
 const envPath = path.resolve(__dirname, "../.env.local");
 
@@ -32,7 +24,7 @@ if (!MONGODB_URI) {
   process.exit(1);
 }
 
-// Define User schema inline (can't use ES module import in CJS script)
+
 const UserSchema = new mongoose.Schema({
   name: { type: String, required: true },
   email: { type: String, required: true, unique: true, lowercase: true },
@@ -47,7 +39,7 @@ async function seedAdmin() {
 
     const User = mongoose.model("User", UserSchema);
 
-    // Admin credentials — change these!
+    
     const adminData = {
       name: "Admin User",
       email: "admin@staraviation.com",
@@ -56,7 +48,7 @@ async function seedAdmin() {
 
     const plainPassword = "admin123";
 
-    // Check if admin already exists
+    
     const existing = await User.findOne({ email: adminData.email });
     if (existing) {
       console.log(`⚠️  Admin already exists: ${adminData.email}`);
@@ -65,11 +57,11 @@ async function seedAdmin() {
       process.exit(0);
     }
 
-    // Hash password
+    
     const salt = await bcrypt.genSalt(12);
     const hashedPassword = await bcrypt.hash(plainPassword, salt);
 
-    // Create admin
+    
     const admin = await User.create({
       ...adminData,
       password: hashedPassword,

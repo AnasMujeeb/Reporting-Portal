@@ -27,7 +27,7 @@ export async function POST(request) {
       );
     }
 
-    // Validate file type
+    
     const validTypes = ["image/jpeg", "image/png", "image/webp", "image/gif"];
     if (!validTypes.includes(file.type)) {
       return NextResponse.json(
@@ -36,7 +36,7 @@ export async function POST(request) {
       );
     }
 
-    // Validate file size (max 5MB)
+    
     if (file.size > 5 * 1024 * 1024) {
       return NextResponse.json(
         { error: "File size must be less than 5MB" },
@@ -44,12 +44,12 @@ export async function POST(request) {
       );
     }
 
-    // Convert file to base64
+    
     const bytes = await file.arrayBuffer();
     const buffer = Buffer.from(bytes);
     const base64 = `data:${file.type};base64,${buffer.toString("base64")}`;
 
-    // Upload to Cloudinary
+    
     const result = await cloudinary.uploader.upload(base64, {
       folder: "star-aviation-reports",
       resource_type: "image",
